@@ -56,3 +56,18 @@ src/
 │   └── graphAlgorithms.js
 └── App.jsx
 ```
+
+## 📌 To-Do
+
+- [ ] Add Dijkstra,  A*
+- [ ] Add speed slider to Graph visualizer
+- [ ] Add weighted node support
+- [ ] Export/share custom maze configurations
+
+---
+
+## ✨ Author
+
+**Mohammad Kashif Khan**
+🏫 M.Tech, IIT Bombay
+🔗 [LinkedIn](https://www.linkedin.com/in/mohammad-kashif-khan-826754207/) • [GitHub](https://github.com/silent-learner)
