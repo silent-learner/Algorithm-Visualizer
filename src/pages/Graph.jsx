@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { graphAlgorithms } from '../algorithms/graphAlgorithms';
+import { generateMaze } from '../algorithms/generateMaze';
 
 
 const NUM_ROWS = 21;
@@ -28,8 +29,10 @@ const createEmptyGrid = () => {
 const Graphs = () => {
   const [grid, setGrid] = useState(createEmptyGrid());
   const [isMousePressed, setIsMousePressed] = useState(false);
+  const [delay, setdelay] = useState(50);
+  const [running, setrunning] = useState(false);
   const [mode, setMode] = useState('none'); // 'none', 'start', 'end'
-  const [selectedAlgo, setSelectedAlgo] = useState('bfs'); // 'none', 'start', 'end'
+  const [selectedAlgo, setSelectedAlgo] = useState('bfs');
 
 
   const updateGridNode = (row, col, updater) => {
@@ -69,6 +72,7 @@ const Graphs = () => {
       }
     }
   };
+
   const getCellClass = (node) => {
     if (node.isStart) return 'bg-gradient-to-r from-green-500 to-green-700';
     if (node.isEnd) return 'bg-red-500';
@@ -87,32 +91,39 @@ const Graphs = () => {
       </h1>
 
       <div className="flex justify-center gap-4 mb-6 flex-wrap">
-        <button
-          onClick={() => setMode('start')}
-          className={`px-4 py-2 rounded text-white ${mode === 'start' ? 'bg-green-600' : 'bg-green-500 hover:bg-green-600'}`}
-        >
-          Set Start Node
-        </button>
-        <button
-          onClick={() => setMode('end')}
-          className={`px-4 py-2 rounded text-white ${mode === 'end' ? 'bg-red-600' : 'bg-red-500 hover:bg-red-600'}`}
-        >
-          Set End Node
-        </button>
-        <button
-          onClick={() => setGrid(createEmptyGrid())}
-          className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded"
-        >
-          Reset Grid
-        </button>
-        <button
-          disabled
-          className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-500 text-white px-4 py-2 rounded"
-        >
-          Generate Random Grid
-        </button>
         <div className="flex gap-4 flex-wrap items-center justify-center">
+          <button
+            disabled={running}
+            onClick={() => setMode('start')}
+            className={`px-4 py-2 rounded text-white disabled:cursor-not-allowed disabled:bg-green-400 ${mode === 'start' ? 'bg-green-600' : 'bg-green-500 hover:bg-green-600'}`}
+          >
+            Set Start Node
+          </button>
+          <button
+            disabled={running}
+            onClick={() => setMode('end')}
+            className={`px-4 py-2 rounded text-white disabled:cursor-not-allowed disabled:bg-red-400 ${mode === 'end' ? 'bg-red-600' : 'bg-red-500 hover:bg-red-600'}`}
+          >
+            Set End Node
+          </button>
+          <button
+            disabled={running}
+            onClick={() => setGrid(createEmptyGrid())}
+            className="bg-gray-700 hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-400 text-white px-4 py-2 rounded"
+          >
+            Reset Grid
+          </button>
+          <button
+            disabled={running}
+            onClick={() => {
+              generateMaze(grid, setGrid);
+            }}
+            className="bg-indigo-600 hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400 text-white px-4 py-2 rounded"
+          >
+            Generate Random Grid
+          </button>
           <select
+            disabled={running}
             value={selectedAlgo}
             onChange={(e) => setSelectedAlgo(e.target.value)}
             className="rounded bg-white shadow px-3 py-2 border text-sm hover:border-yellow-500 focus:outline-none"
@@ -123,6 +134,21 @@ const Graphs = () => {
               </option>
             ))}
           </select>
+          <div className="flex flex-col items-center mb-4">
+            <label htmlFor="length" className="mb-1 text-gray-700 font-medium disabled:cursor-not-allowed disabled:bg-gray-400">
+              Delay : {delay}
+            </label>
+            <input
+              type="range"
+              id="delay"
+              min="20"
+              max="200"
+              value={delay}
+              disabled={running}
+              onChange={(e) => setdelay(Number(e.target.value))}
+              className="w-64 accent-yellow-500"
+            />
+          </div>
 
           <button
             onClick={() => {
@@ -138,10 +164,11 @@ const Graphs = () => {
               }
 
               if (startNode && endNode) {
-                algoFunc(grid, startNode, endNode, setGrid, 100); // delay = 20ms
+                algoFunc(grid, startNode, endNode, setGrid, delay, setrunning);
               }
             }}
-            className="bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded"
+            disabled={running}
+            className="bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded disabled:cursor-not-allowed disabled:bg-yellow-400"
           >
             Visualize
           </button>

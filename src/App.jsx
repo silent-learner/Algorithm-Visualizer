@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 function App() {
 
   return (
-    <Router>
+    <Router basename='/Algorithm-Visualizer'>
       <div className="flex flex-col min-h-screen bg-gray-100 text-gray-900">
         <NavBar />
         <main className='flex-grow flex justify-center p-4'>

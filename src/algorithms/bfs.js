@@ -1,6 +1,7 @@
-export async function bfs(grid, startNode, endNode, setGrid, delay = 20) {
+export async function bfs(grid, startNode, endNode, setGrid, delay = 20, setrunning) {
   const numRows = grid.length;
   const numCols = grid[0].length;
+  setrunning(true);
   const visited = Array.from({ length: numRows }, () => Array(numCols).fill(false));
   const prev = Array.from({ length: numRows }, () => Array(numCols).fill(null));
   const queue = [];
@@ -67,4 +68,5 @@ export async function bfs(grid, startNode, endNode, setGrid, delay = 20) {
     setGrid([...grid.map(row => [...row])]);
     await sleep(delay);
   }
+  setrunning(false);
 }

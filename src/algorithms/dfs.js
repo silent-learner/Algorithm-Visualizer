@@ -1,5 +1,6 @@
-export async function dfs(grid, startNode, endNode, setGrid, delay = 20) {
+export async function dfs(grid, startNode, endNode, setGrid, delay = 20, setrunning) {
     const numRows = grid.length;
+    setrunning(true);
     const numCols = grid[0].length;
     const visited = Array.from({ length: numRows }, () => Array(numCols).fill(false));
     const prev = Array.from({ length: numRows }, () => Array(numCols).fill(null));
@@ -26,7 +27,6 @@ export async function dfs(grid, startNode, endNode, setGrid, delay = 20) {
         const current = stack.pop();
         grid[current.row][current.col].isQueued = false;
         // console.log(current);
-        // If reached the end
         if (current.row === endNode.row && current.col === endNode.col) {
             found = true;
             console.log("FOUND");
@@ -50,12 +50,11 @@ export async function dfs(grid, startNode, endNode, setGrid, delay = 20) {
                 grid[newRow][newCol].isQueued = true;
             }
         }
-        setGrid([...grid.map(row => [...row])]); // trigger re-render
+        setGrid([...grid.map(row => [...row])]); 
         await sleep(delay);
         if (found) break;
     }
 
-    // Trace back path
     let curr = endNode;
     while (prev[curr.row][curr.col] !== null) {
         const { row, col } = curr;
@@ -64,4 +63,5 @@ export async function dfs(grid, startNode, endNode, setGrid, delay = 20) {
         setGrid([...grid.map(row => [...row])]);
         await sleep(delay);
     }
+    setrunning(false);
 }

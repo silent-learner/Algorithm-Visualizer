@@ -11,7 +11,7 @@ const Sorting = () => {
     const [sorting, setsorting] = useState(false);
     const [showVal, setshowVal] = useState(false);
     const [arrayLength, setArrayLength] = useState(20);
-    const [speed, setSpeed] = useState(15);
+    const [speed, setSpeed] = useState(50);
     const [colorMap, setColorMap] = useState({});
     const [algorithm, setAlgorithm] = useState('bubble');
 
@@ -76,27 +76,31 @@ const Sorting = () => {
             </div>
 
             <div className="flex justify-center gap-4 flex-col lg:flex-row">
-                <button
-                    onClick={generateArray}
-                    disabled={sorting}
-                    className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 disabled:opacity-50"
-                >
-                    Generate New Array
-                </button>
-                <button
-                    onClick={handleSort}
-                    disabled={sorting}
-                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-400 disabled:opacity-50"
-                >
-                    Start Sorting
-                </button>
-                <button
-                    onClick={() => setshowVal(!showVal)}
-                    disabled={arrayLength >= 30}
-                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-400 disabled:opacity-50"
-                >
-                    {!showVal ? "Show Values" : "Hide Values"}
-                </button>
+                <div className="flex gap-4 flex-wrap items-center justify-center">
+
+                    <button
+                        onClick={generateArray}
+                        disabled={sorting}
+                        className="bg-gray-800 text-white px-4 disabled:cursor-not-allowed py-2 rounded hover:bg-gray-700 disabled:opacity-50"
+                    >
+                        Generate New Array
+                    </button>
+                    <button
+                        onClick={handleSort}
+                        disabled={sorting}
+                        className="bg-green-500 text-white px-4 disabled:cursor-not-allowed py-2 rounded hover:bg-green-400 disabled:opacity-50"
+                    >
+                        Start Sorting
+                    </button>
+                    <button
+                        onClick={() => setshowVal(!showVal)}
+                        disabled={arrayLength >= 30 || sorting}
+                        className="bg-yellow-500 text-white disabled:cursor-not-allowed px-4 py-2 rounded hover:bg-yellow-400 disabled:opacity-50"
+                    >
+                        {!showVal ? "Show Values" : "Hide Values"}
+                    </button>
+                </div>
+
                 <div className="flex flex-col items-center mb-4">
                     <label htmlFor="length" className="mb-1 text-gray-700 font-medium">
                         Array Length: {arrayLength}
@@ -114,13 +118,13 @@ const Sorting = () => {
                 </div>
                 <div className="flex flex-col items-center mb-4">
                     <label htmlFor="length" className="mb-1 text-gray-700 font-medium">
-                        Speed : {speed}
+                        Delay : {speed}
                     </label>
                     <input
                         type="range"
                         id="speed"
-                        min="1"
-                        max="100"
+                        min="20"
+                        max="200"
                         value={speed}
                         disabled={sorting}
                         onChange={(e) => setSpeed(Number(e.target.value))}
@@ -129,6 +133,7 @@ const Sorting = () => {
                 </div>
             </div>
         </div>
+
     );
 }
 

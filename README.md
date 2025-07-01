@@ -15,7 +15,7 @@ An interactive web-based visualizer for sorting and graph traversal algorithms, 
   - Insertion Sort
   - Selection Sort
   - Merge Sort
-  - Quick Sort (Coming Soon)
+  - Quick Sort
 
 ### 📊 Graph Algorithm Visualizer
 
@@ -25,7 +25,8 @@ An interactive web-based visualizer for sorting and graph traversal algorithms, 
 - Supported algorithms:
   - Breadth-First Search (BFS)
   - Depth-First Search (DFS)
-  - Dijkstra & A* (Planned)
+  - A*
+  - Dijkstra (Planned)
 
 ---
 
@@ -51,6 +52,10 @@ src/
 │   ├── insertionSort.js
 │   ├── selectionSort.js
 │   ├── mergeSort.js
+│   ├── quickSort.js
+│   ├── astar.js
+│   ├── greedyheuristic.js
+│   ├── generateMaze.js
 │   ├── bfs.js
 │   ├── dfs.js
 │   └── graphAlgorithms.js
@@ -59,8 +64,9 @@ src/
 
 ## 📌 To-Do
 
-- [ ] Add Dijkstra,  A*
-- [ ] Add speed slider to Graph visualizer
+- [ ] Add Dijkstra
+- [X] Add A*
+- [X] Add speed slider to Graph visualizer
 - [ ] Add weighted node support
 - [ ] Export/share custom maze configurations
 
