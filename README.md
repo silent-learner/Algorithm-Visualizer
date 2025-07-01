@@ -1,4 +1,4 @@
-# 🧠 Algorithm Visualizer
+# 🧠 [Algorithm Visualizer](https://silent-learner.github.io/Algorithm-Visualizer/)
 
 An interactive web-based visualizer for sorting and graph traversal algorithms, built using **React 19**, **Tailwind CSS**, and the **MERN stack**.
 
